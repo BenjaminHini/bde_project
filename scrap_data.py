@@ -29,18 +29,22 @@ def get_horoscope_by_day(zodiac_sign: int, day: str):
     return data.p.text
 
 array = pd.date_range(start='2022-1-1', periods=365)
-# print(str(array[0]).split(' ')[0])
 description = []
 signs= []
 dates = []
-sign = 1
 
-for i in range(365):
-    signs.append(sign)
-    date = str(array[i]).split(' ')[0]
-    dates.append(date)
-    description.append(get_horoscope_by_day(sign,date))
-    print(i)
+
+for sign in range(12):
+    for i in range(365):
+        signs.append(str(sign+1))
+        date = str(array[i]).split(' ')[0]
+        dates.append(date)
+        description.append(get_horoscope_by_day(sign+1,date))
+
 
 df = pd.DataFrame([dates,signs,description])
-df.T.to_excel('data.xlsx',index=False)
+df = df.T
+df.columns = ['dates','signs','description']
+df['description'] = df['description'].str.replace(',','')
+df.to_excel('data.xlsx',index=False)
+df.to_csv('data.csv',index=False)
