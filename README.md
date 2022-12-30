@@ -104,7 +104,7 @@ The workflow is an **XML** file containing the orchestration of the procees (i.e
 
 Here is what the orchestration looks like : 
 
-![image-20221230184129777](C:\Users\benja\AppData\Roaming\Typora\typora-user-images\image-20221230184129777.png)
+![image-20221230184129777](img/oozie_orchestration.png)
 
 From this graph, we see that the scripts folder contains 2 files:
 
