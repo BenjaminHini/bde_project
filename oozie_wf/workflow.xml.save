@@ -13,18 +13,21 @@
   </action>
 
   <action name="hql_node">
-    <hive xmlns="uri:oozie:hive-action:0.5">
+    <hive2 xmlns="uri:oozie:hive-action:0.5">
       <job-tracker>${jobTracker}</job-tracker>
       <name-node>${nameNode}</name-node>
       <configuration>
         <property>
-          <name>oozie.hive.defaults</name>
+          <name>hive2.server.principal</name>
           <value>${hivePrincipal}</value>
+        </property>
+        <property>
+          <name>hive2.jdbc.url</name>
+          <value>${jdbcUrl}</value>
         </property>
       </configuration>
       <scripts>scripts/beehive_script.hql</scripts>
       <param>hiveUsername=${hiveUsername}</param>
-      <param>clusterUsername=$'{clusterUsername}</param>
     </hive>
     <ok to="end" />
     <error to="kill_job" />
