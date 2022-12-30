@@ -1,6 +1,3 @@
-SET hivevar:hiveUsername=p_nom_ece;
-SET hivevar:clusterUsername=p.nom-ece;
-
 CREATE EXTERNAL TABLE ece_2022_fall_bda_1.${hiveUsername}_bde_project_db_ext (
 dates string,
 signs int,

@@ -13,12 +13,22 @@
   </action>
 
   <action name="hql_node">
-    <shell xmlns="uri:oozie:shell-action:0.2">
+    <hive2 xmlns="uri:oozie:shell-action:0.2">
       <job-tracker>${jobTracker}</job-tracker>
       <name-node>${nameNode}</name-node>
-      <exec>beeline</exec>
-      <file>scripts/beehive_script.hql</file>
-    </shell>
+      <configuration>
+        <property>
+          <name>hive2.server.principal</name>
+          <value>${hivePrincipal}</value>
+        </property>
+        <property>
+          <name>hive2.jdbc.url</name>
+          <value>${jdbcUrl}</value>
+        </property>
+      </configuration>
+      <scripts>scripts/beehive_script.hql</scripts>
+      <param>hiveUsername=${hiveUsername}</param>
+    </hive2>
     <ok to="end" />
     <error to="kill_job" />
   </action>
