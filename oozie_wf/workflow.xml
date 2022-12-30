@@ -1,38 +1,39 @@
-<workflow-app xmlns="uri:oozie:workflow:0.4" name="launch_python_script">
-  <start to="python_node" />
+<coordinator-app name="daily-workflow" frequency="${coord:days(1)}" start="${start}" end="${end}" timezone="UTC">
+  <workflow-app xmlns="uri:oozie:workflow:0.4" name="launch_python_script">
+    <start to="python_node" />
 
-  <action name="python_node">
-    <shell xmlns="uri:oozie:shell-action:0.2">
-      <job-tracker>${jobTracker}</job-tracker>
-      <name-node>${nameNode}</name-node>
-      <exec>python3</exec>
-      <file>scripts/daily_scrapping.py</file>
-    </shell>
-    <ok to="hql_node" />
-    <error to="kill_job" />
-  </action>
+    <action name="python_node">
+      <shell xmlns="uri:oozie:shell-action:0.2">
+        <job-tracker>${jobTracker}</job-tracker>
+        <name-node>${nameNode}</name-node>
+        <exec>python3</exec>
+        <file>scripts/daily_scrapping.py</file>
+      </shell>
+      <ok to="hql_node" />
+      <error to="kill_job" />
+    </action>
 
-  <action name="hql_node">
-    <hive xmlns="uri:oozie:hive-action:0.5">
-      <job-tracker>${jobTracker}</job-tracker>
-      <name-node>${nameNode}</name-node>
-      <configuration>
-        <property>
-          <name>oozie.hive.defaults</name>
-          <value>${hivePrincipal}</value>
-        </property>
-      </configuration>
-      <scripts>scripts/beehive_script.hql</scripts>
-      <param>hiveUsername=${hiveUsername}</param>
-      <param>clusterUsername=$'{clusterUsername}</param>
-    </hive>
-    <ok to="end" />
-    <error to="kill_job" />
-  </action>
+    <action name="hql_node">
+      <hive xmlns="uri:oozie:hive-action:0.5">
+        <job-tracker>${jobTracker}</job-tracker>
+        <name-node>${nameNode}</name-node>
+        <configuration>
+          <property>
+            <name>oozie.hive.defaults</name>
+            <value>${hivePrincipal}</value>
+          </property>
+        </configuration>
+        <scripts>scripts/beehive_script.hql</scripts>
+        <param>hiveUsername=${hiveUsername}</param>
+      </hive>
+      <ok to="end" />
+      <error to="kill_job" />
+    </action>
 
-  <kill name="kill_job">
-    <message>Job failed</message>
-  </kill>
+    <kill name="kill_job">
+      <message>Job failed</message>
+    </kill>
 
-  <end name="end" />
-</workflow-app>
+    <end name="end" />
+  </workflow-app>
+</coordinator-app>
