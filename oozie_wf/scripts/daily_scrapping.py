@@ -49,5 +49,4 @@ for sign in ZODIAC_SIGNS.values():
 
 df = pd.DataFrame([dates, signs, descritpions]).T
 df.columns = ['dates','signs','description']
-df.to_json('daily_scrap.json')
-df.to_csv('dail_scrap.csv')
+df.to_json('../db/daily_scrap.json')
