@@ -8,6 +8,17 @@
       <exec>python3</exec>
       <file>scripts/daily_scrapping.py</file>
     </shell>
+    <ok to="hql_node" />
+    <error to="kill_job" />
+  </action>
+
+  <action name="hql_node">
+    <shell xmlns="uri:oozie:shell-action:0.2">
+      <job-tracker>${jobTracker}</job-tracker>
+      <name-node>${nameNode}</name-node>
+      <exec>beeline</exec>
+      <file>scripts/beehive_script.hql</file>
+    </shell>
     <ok to="end" />
     <error to="kill_job" />
   </action>
