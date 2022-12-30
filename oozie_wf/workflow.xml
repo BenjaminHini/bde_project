@@ -1,0 +1,20 @@
+<workflow-app xmlns="uri:oozie:workflow:0.4" name="launch_python_script">
+  <start to="python_node" />
+
+  <action name="python_node">
+    <shell xmlns="uri:oozie:shell-action:0.2">
+      <job-tracker>${jobTracker}</job-tracker>
+      <name-node>${nameNode}</name-node>
+      <exec>daily_scrapping.py</exec>
+      <file>scripts/daily_scrapping.py</file>
+    </shell>
+    <ok to="end" />
+    <error to="kill_job" />
+  </action>
+
+  <kill name="kill_job">
+    <message>Job failed</message>
+  </kill>
+
+  <end name="end" />
+</workflow-app>
