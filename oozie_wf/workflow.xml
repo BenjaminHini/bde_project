@@ -1,4 +1,4 @@
-<coordinator-app name="daily-workflow" frequency="${coord:days(1)}" start="${start}" end="${end}" timezone="UTC">
+<coordinator-app name="daily-workflow" frequency="0 5 * * *" start="2022-30-12T05:00Z" end="2023-30-01T05:00Z" timezone="UTC">
   <workflow-app xmlns="uri:oozie:workflow:0.4" name="launch_python_script">
     <start to="python_node" />
 
