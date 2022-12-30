@@ -46,5 +46,5 @@ df = pd.DataFrame([dates,signs,description])
 df = df.T
 df.columns = ['dates','signs','description']
 df['description'] = df['description'].str.replace(',','')
-df.to_excel('data.xlsx',index=False)
-df.to_csv('data.csv',index=False)
+# df.to_excel('data.xlsx',index=False)
+df.to_csv('db/data.csv',index=False)
