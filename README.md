@@ -17,8 +17,8 @@ Now that the data is generated from the python script, we load the csv file into
 We first set our clusterUsername and hiveUsername :
 
 ```
-SET hivevar:clusterUsername = a.abadie-ece;
-SET hivevar:hiveUsername=a_abadie_ece; 
+SET hivevar:clusterUsername = p.nom-ece;
+SET hivevar:hiveUsername=p_nom_ece; 
 ```
 
 Then, we create our external table with the 3 columns dates, signs and description in the location of our data.csv (in the folder db)
@@ -30,13 +30,13 @@ signs int,
 description string)
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
 STORED AS TEXTFILE
-LOCATION '/education/ece_2022_fall_bda_1/b.hini-ece/project/bde_project/db'
+LOCATION '/path/bde_project/db'
 TBLPROPERTIES ('skip.header.line.count'='1');
 ```
 
 We check if the data is well stored : 
 ```
-select * from ece_2022_fall_bda_1.a_abadie_ece_bde_project_db_ext limit 5;
+select * from ece_2022_fall_bda_1.${hiveUsername}_bde_project_db_ext limit 5;
 ```
 
 It should print something like this : 
@@ -56,12 +56,12 @@ STORED AS ORC;
 
 We just have to insert all the data from the external table to the ORC table :
 ```
-INSERT INTO TABLE ece_2022_fall_bda_1.${hiveUsername}_bde_project_db SELECT * FROM ece_2022_fall_bda_1.a_abadie_ece_bde_project_db_ext;
+INSERT INTO TABLE ece_2022_fall_bda_1.${hiveUsername}_bde_project_db SELECT * FROM ece_2022_fall_bda_1.${hiveUsername}_bde_project_db_ext;
 ```
 
 We check if the data is well stored in the ORC table: 
 ```
-select * from ece_2022_fall_bda_1.a_abadie_ece_bde_project_db limit 5;
+select * from ece_2022_fall_bda_1.${hiveUsername}_bde_project_db limit 5;
 ```
 
 It should print something like this : 
