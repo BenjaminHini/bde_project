@@ -30,7 +30,7 @@ signs int,
 description string)
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
 STORED AS TEXTFILE
-LOCATION '/path/bde_project/db'
+LOCATION '/education/ece_2022_fall_bda_1/b.hini-ece/project/bde_project/db'
 TBLPROPERTIES ('skip.header.line.count'='1');
 ```
 
