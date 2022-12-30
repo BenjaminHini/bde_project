@@ -70,6 +70,36 @@ It should print something like this :
 
 
 
+##	Oozie orchestration
+
+We want to create an Oozie orchestration allowing us to scrap some data, add it to the ORC table and perform some machine learning every day.
+
+To do so we create a **oozie_wf** folder composed of 3 elements:
+
+1. a *job.properties* file
+2. a *workflow.xml* file
+3. a *scripts* folder
+
+The first element contains the global data of the workflow such as the file path and the global variables
+
+The workflow is an **XML** file containing the orchestration of the procees (i.e. the order in which each script is called)
+
+The scripts folder contains all the scripts that are called by the workflow.
+
+In order to launch the orchestration we must first put oozie_wf in the path defined in the job.properties
+
+```hive
+hdfs dfs -put oozie_wf "/user/$USER"
+```
+
+then we launch it with the following command
+
+````hive
+oozie job -run -config oozie_wf/job.properties -oozie http://oozie-1.au.adaltas.cloud:11000/oozie
+````
+
+
+
 **Contact**: 
 - alexandre.abadie@edu.ece.fr
 - benjamin.hini@edu.ece.fr
